@@ -1,0 +1,58 @@
+# ==============================================================================
+# Git Ignore for PHP / MySQL Web Application
+# ==============================================================================
+
+# Environment & Sensitive Credentials
+.env
+.env.local
+.env.*.local
+*.env
+config.local.php
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Settings
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+*.bak
+
+# Dependency Directories
+/vendor/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs & Databases
+*.log
+logs/
+*.sql.gz
+*.sqlite
+*.sqlite3
+
+# Temporary & Cache Files
+tmp/
+temp/
+cache/
+.phpunit.result.cache
+
+# Sensitive Test / Setup Scripts (Do not commit one-off admin reset scripts)
+create_admin.php
+update_admin.php

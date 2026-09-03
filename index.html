@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCA's Pizza Palace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .pizza-bg { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="pizza-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="text-3xl">🍕</div>
+                    <h1 class="text-2xl font-bold">MCA's Pizza Palace</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <button onclick="showPage('home')" class="hover:text-yellow-300 transition-colors">Home</button>
+                    <button onclick="showPage('menu')" class="hover:text-yellow-300 transition-colors">Menu</button>
+                    <button onclick="showPage('about')" class="hover:text-yellow-300 transition-colors">About</button>
+                    <button onclick="showPage('contact')" class="hover:text-yellow-300 transition-colors">Contact</button>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <div id="cart-icon" class="relative cursor-pointer" onclick="toggleCart()">
+                        <span class="text-2xl">🛒</span>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+                    </div>
+                    <div id="user-menu">
+                        <button onclick="showPage('login')" class="bg-white text-orange-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform z-50">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <div id="cart-items" class="space-y-4 mb-6"></div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-bold">Total: ₹<span id="cart-total">0.00</span></span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <section class="relative pizza-bg text-white py-20 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                <div class="absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center;"></div>
+                <div class="container mx-auto px-4 text-center relative z-10">
+                    <h2 class="text-5xl font-bold mb-6 fade-in">Welcome to MCA's Pizza Palace</h2>
+                    <p class="text-xl mb-8 fade-in">Authentic Italian pizzas made with love and fresh ingredients</p>
+                    <button onclick="showPage('menu')" class="bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors fade-in">Order Now</button>
+                </div>
+            </section>
+            
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <h3 class="text-3xl font-bold text-center mb-12">Featured Pizzas</h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                            <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold mb-2">Margherita Classic</h4>
+                                <p class="text-gray-600 mb-4">Fresh mozzarella, tomato sauce, and basil</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-orange-500">₹1323.22</span>
+                                    <button onclick="addToCart('Margherita Classic', 1411.49)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                            <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold mb-2">Pepperoni Supreme</h4>
+                                <p class="text-gray-600 mb-4">Pepperoni, mozzarella, and our signature sauce</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-orange-500">₹1499.77</span>
+                                    <button onclick="addToCart('Pepperoni Supreme', 1499.77)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                            <div class="h-48 bg-cover bg-center" style="background-image: url('https://pizzastationhayward.com/wp-content/uploads/2024/10/Veggie-Delux.jpeg');"></div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold mb-2">Veggie Deluxe</h4>
+                                <p class="text-gray-600 mb-4">Bell peppers, mushrooms, olives, and onions</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-orange-500">₹1411.49</span>
+                                    <button onclick="addToCart('Veggie Deluxe', 1411.49)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Menu Page -->
+        <div id="menu-page" class="page hidden">
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-bold text-center mb-12">Our Menu</h2>
+                    
+                    <div class="flex justify-center mb-8">
+                        <div class="flex space-x-4">
+                            <button onclick="filterMenu('all')" class="filter-btn bg-orange-500 text-white px-6 py-2 rounded-lg">All</button>
+                            <button onclick="filterMenu('pizza')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg">Pizzas</button>
+                            <button onclick="filterMenu('sides')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg">Sides</button>
+                            <button onclick="filterMenu('drinks')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg">Drinks</button>
+                        </div>
+                    </div>
+
+                    <div id="menu-items" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="about-page" class="page hidden">
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto">
+                        <h2 class="text-4xl font-bold text-center mb-12">About MCA's Pizza Palace</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-6">Our Story</h3>
+                                <p class="text-gray-600 mb-6">Founded in 1985 by Mario Rossi, our family-owned pizzeria has been serving authentic Italian pizzas for over 35 years. What started as a small neighborhood restaurant has grown into a beloved local institution.</p>
+                                <p class="text-gray-600 mb-6">We use only the finest ingredients, from our hand-tossed dough made fresh daily to our signature sauce crafted from San Marzano tomatoes. Every pizza is made with passion and attention to detail.</p>
+                                <p class="text-gray-600">Our commitment to quality and customer satisfaction has made us the go-to destination for pizza lovers in the community.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
+                                    <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                                </div>
+                                <h4 class="text-xl font-bold mt-6">Mario Rossi</h4>
+                                <p class="text-gray-600">Founder & Head Chef</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-16">
+                            <h3 class="text-2xl font-bold text-center mb-8">Why Choose Us?</h3>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div class="text-center">
+                                    <div class="text-4xl mb-4">🍅</div>
+                                    <h4 class="text-xl font-bold mb-2">Fresh Ingredients</h4>
+                                    <p class="text-gray-600">We source the finest ingredients daily to ensure maximum freshness and flavor.</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl mb-4">👨‍🍳</div>
+                                    <h4 class="text-xl font-bold mb-2">Expert Chefs</h4>
+                                    <p class="text-gray-600">Our experienced chefs bring authentic Italian techniques to every pizza.</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl mb-4">🚚</div>
+                                    <h4 class="text-xl font-bold mb-2">Fast Delivery</h4>
+                                    <p class="text-gray-600">Hot, fresh pizzas delivered to your door in 30 minutes or less.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact-page" class="page hidden">
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Contact Us</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📍</span>
+                            <div>
+                                <p class="font-semibold">Address</p>
+                                <p class="text-gray-600">Davangere University</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📞</span>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <p class="text-gray-600">(555) 123-PIZZA</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📧</span>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p class="text-gray-600">info@mcaspizza.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🕒</span>
+                            <div>
+                                <p class="font-semibold">Hours</p>
+                                <p class="text-gray-600">Mon-Sun: 11:00 AM - 11:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Send us a Message</h3>
+                    
+                    <form id="contact-form" onsubmit="submitContactForm(event)">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                            <input type="text" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                            <textarea name="message" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+        <!-- Login Page -->
+        <div id="login-page" class="page hidden">
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+                        <h2 class="text-3xl font-bold text-center mb-8">Login</h2>
+						
+
+                        <form id="login-form" onsubmit="handleLogin(event)">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                                <input type="email" id="login-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                                <input type="password" id="login-password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                            </div>
+                            <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">Login</button>
+                        </form>
+                        
+                        <div class="text-center mt-6">
+							<p class="text-gray-600">Don't have an account?
+							<button onclick="showPage('register')" class="text-orange-500 hover:text-orange-600">Register</button></p>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+		
+		
+<!-- Register Page -->
+<div id="register-page" class="page hidden">
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center mb-8">Register</h2>
+
+                <form id="register-form" onsubmit="phpRegister(event)">
+                    <!-- Name -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <input type="text" id="reg-name" name="name"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+                            required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="reg-email" name="email"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+                            required>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+                        <input type="tel" id="reg-phone" name="phone" pattern="[0-9]{10}"
+                            placeholder="Enter 10-digit phone number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+                            required>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                        <textarea id="reg-address" name="address"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+                            rows="3" required></textarea>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="reg-password" name="password"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+                            required>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit"
+                        class="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">Register</button>
+                </form>
+
+                <div class="text-center mt-6">
+                    <p class="text-gray-600">Already have an account?
+                        <button onclick="showPage('login')" class="text-orange-500 hover:text-orange-600">Login</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+	   <!-- Customer Account Page -->
+        <div id="customer-page" class="page hidden">
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="flex justify-between items-center mb-8">
+                            <h2 class="text-3xl font-bold">My Account</h2>
+                            <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Logout</button>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-white rounded-lg shadow-lg p-6">
+                                <h3 class="text-xl font-bold mb-4">Profile Information</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="text-sm text-gray-600">Name</label>
+                                        <p class="font-semibold" id="customer-name"></p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm text-gray-600">Email</label>
+                                        <p class="font-semibold" id="customer-email"></p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm text-gray-600">Phone</label>
+                                        <p class="font-semibold" id="customer-phone">Loading...</p>
+                                         </div>
+                                          <div>
+										<label class="text-sm text-gray-600">Address</label>
+										<p class="font-semibold" id="customer-address">Loading...</p>
+									</div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-lg p-6">
+                                <h3 class="text-xl font-bold mb-4">Quick Stats</h3>
+                                <div class="flex justify-between">
+    <span class="text-gray-600">Total Orders</span>
+    <span class="font-semibold" id="customer-total-orders">0</span>
+</div>
+<div class="flex justify-between">
+    <span class="text-gray-600">Total Spent</span>
+    <span class="font-semibold" id="total-spent">$0.00</span>
+</div>
+<div class="flex justify-between">
+    <span class="text-gray-600">Favorite Pizza</span>
+    <span class="font-semibold" id="favorite-pizza">N/A</span>
+</div>
+<div class="flex justify-between">
+    <span class="text-gray-600">Member Since</span>
+    <span class="font-semibold" id="member-since">N/A</span>
+</div>
+
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-lg p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-6">Order History</h3>
+                            <div id="customer-orders" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+       <!-- Admin Page -->
+<div id="admin-page" class="page hidden">
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Admin Dashboard</h2>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Logout</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <p id="admin-total-orders" class="text-3xl font-bold">0</p>
+                    <p class="text-gray-600">Total Orders</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <p id="total-revenue" class="text-3xl font-bold">$0.00</p>
+                    <p class="text-gray-600">Revenue</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <p id="total-customers" class="text-3xl font-bold">0</p>
+                    <p class="text-gray-600">Customers</p>
+                </div>
+            </div>
+
+            <!-- Orders / Customers / Contacts -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Orders -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6">Recent Orders</h3>
+                    <div id="admin-orders" class="space-y-4"></div>
+                </div>
+
+                <!-- Customers -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6">Customer Management</h3>
+                    <div id="admin-customers" class="space-y-4"></div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+    <h3 class="text-xl font-bold mb-6">Contact Messages</h3>
+    <div id="admin-contacts" class="space-y-4"></div>
+</div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-2xl">🍕</span>
+                        <h3 class="text-xl font-bold">MCA's Pizza Palace</h3>
+                    </div>
+                    <p class="text-gray-400">Serving authentic Italian pizzas since 1985. Made with love, served with pride.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="showPage('home')" class="text-gray-400 hover:text-white transition-colors">Home</button></li>
+                        <li><button onclick="showPage('menu')" class="text-gray-400 hover:text-white transition-colors">Menu</button></li>
+                        <li><button onclick="showPage('about')" class="text-gray-400 hover:text-white transition-colors">About</button></li>
+                        <li><button onclick="showPage('contact')" class="text-gray-400 hover:text-white transition-colors">Contact</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>📍 Davangere University</li>
+                        <li>📞 (555) 123-PIZZA</li>
+                        <li>📧 info@mcaspizza.com</li>
+                    </ul>
+                </div>
+                <div>
+  <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+  <div class="flex space-x-4">
+    <!-- Facebook -->
+    <a href="https://facebook.com/yourpage" target="_blank" class="text-2xl hover:text-orange-500 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22.675 0h-21.35C.6 0 0 .6 0 1.325v21.351C0 23.4.6 24 1.325 
+        24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 
+        1.893-4.788 4.659-4.788 1.325 0 2.463.099 
+        2.794.143v3.24h-1.918c-1.504 0-1.796.715-1.796 
+        1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.4 
+        24 24 23.4 24 22.675V1.325C24 .6 23.4 
+        0 22.675 0z"/>
+      </svg>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://instagram.com/yourpage" target="_blank" class="text-2xl hover:text-orange-500 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 
+        4.85.07 1.366.062 2.633.35 
+        3.608 1.325.975.975 1.262 2.242 
+        1.325 3.608.058 1.266.069 1.646.069 
+        4.85s-.012 3.584-.07 4.85c-.062 1.366-.35 
+        2.633-1.325 3.608-.975.975-2.242 
+        1.262-3.608 1.325-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.262-2.242-1.325-3.608C2.175 
+        15.747 2.163 15.367 2.163 
+        12s.012-3.584.07-4.85c.062-1.366.35-2.633 
+        1.325-3.608.975-.975 2.242-1.262 
+        3.608-1.325C8.416 2.175 8.796 2.163 
+        12 2.163M12 0C8.741 0 8.332.013 
+        7.052.072 5.771.131 4.671.425 
+        3.758 1.338 2.845 2.251 2.551 
+        3.351 2.492 4.632.013 8.332 0 
+        8.741 0 12s.013 3.668.072 4.948c.059 
+        1.281.353 2.381 1.266 3.294.913.913 
+        2.013 1.207 3.294 1.266C8.332 
+        23.987 8.741 24 12 24s3.668-.013 
+        4.948-.072c1.281-.059 2.381-.353 
+        3.294-1.266.913-.913 1.207-2.013 
+        1.266-3.294.059-1.28.072-1.689.072-4.948s-.013-3.668-.072-4.948c-.059-1.281-.353-2.381-1.266-3.294-.913-.913-2.013-1.207-3.294-1.266C15.668.013 
+        15.259 0 12 0z"/>
+        <path d="M12 5.838a6.162 6.162 0 1 0 
+        0 12.324 6.162 6.162 0 0 0 0-12.324zm0 
+        10.162a3.999 3.999 0 1 1 0-7.998 
+        3.999 3.999 0 0 1 0 7.998z"/>
+        <circle cx="18.406" cy="5.594" r="1.44"/>
+      </svg>
+    </a>
+
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/yourpage" target="_blank" class="text-2xl hover:text-orange-500 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.953 4.57a10 10 0 0 
+        1-2.825.775 4.958 4.958 0 0 
+        0 2.163-2.723 9.936 9.936 0 0 
+        1-3.127 1.195 4.92 4.92 0 0 
+        0-8.384 4.482A13.978 13.978 0 0 
+        1 1.671 3.149a4.822 4.822 0 0 
+        0-.666 2.475c0 1.708.87 3.213 
+        2.188 4.096a4.903 4.903 0 0 
+        1-2.229-.616c-.054 2.385 1.671 
+        4.623 4.137 5.107a4.935 4.935 0 0 
+        1-2.224.084c.63 1.953 2.445 
+        3.377 4.6 3.419a9.867 9.867 0 0 
+        1-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.945 
+        13.945 0 0 0 7.557 2.209c9.053 
+        0 14-7.496 14-13.986 0-.21 
+        0-.423-.015-.634A9.936 9.936 0 0 
+        0 24 4.59z"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 MCA's Pizza Palace. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application State
+        let currentUser = null;
+        let cart = [];
+
+        const menuItems = [
+            { id: 1, name: 'Margherita Classic', price: 1411.49, category: 'pizza', description: 'Fresh mozzarella, tomato sauce, and basil' },
+            { id: 2, name: 'Pepperoni Supreme', price: 1499.77, category: 'pizza', description: 'Pepperoni, mozzarella, and our signature sauce' },
+            { id: 3, name: 'Veggie Deluxe', price: 1411.49, category: 'pizza', description: 'Bell peppers, mushrooms, olives, and onions' },
+            { id: 4, name: 'Meat Lovers', price: 1764.59, category: 'pizza', description: 'Pepperoni, sausage, ham, and bacon' },
+            { id: 5, name: 'Hawaiian Paradise', price: 1588.04, category: 'pizza', description: 'Ham, pineapple, and mozzarella' },
+            { id: 6, name: 'BBQ Chicken', price: 1676.31, category: 'pizza', description: 'Grilled chicken, BBQ sauce, and red onions' },
+            { id: 7, name: 'Garlic Bread', price: 440.48, category: 'sides', description: 'Fresh baked bread with garlic butter' },
+            { id: 8, name: 'Caesar Salad', price: 705.31, category: 'sides', description: 'Crisp romaine lettuce with Caesar dressing' },
+            { id: 9, name: 'Chicken Wings', price: 881.85, category: 'sides', description: 'Spicy buffalo wings with ranch dip' },
+            { id: 10, name: 'Coca Cola', price: 263.94, category: 'drinks', description: 'Classic refreshing cola' },
+            { id: 11, name: 'Sprite', price: 263.94, category: 'drinks', description: 'Lemon-lime soda' },
+            { id: 12, name: 'Orange Juice', price: 352.21, category: 'drinks', description: 'Fresh squeezed orange juice' }
+        ];
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+            
+            // Load page-specific content
+            if (pageId === 'menu') {
+                loadMenu();
+            } else if (pageId === 'customer') {
+                loadCustomerData();
+            } else if (pageId === 'admin') {
+                loadAdminData();
+            }
+        }
+
+        // Menu Functions
+        function loadMenu() {
+            const menuContainer = document.getElementById('menu-items');
+            menuContainer.innerHTML = '';
+            
+            menuItems.forEach(item => {
+                const itemCard = createMenuItemCard(item);
+                menuContainer.appendChild(itemCard);
+            });
+        }
+
+        function createMenuItemCard(item) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-lg overflow-hidden card-hover menu-item';
+            card.dataset.category = item.category;
+            
+            const images = {
+                'Margherita Classic': 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Pepperoni Supreme': 'https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Veggie Deluxe': 'https://pizzastationhayward.com/wp-content/uploads/2024/10/Veggie-Delux.jpeg',
+                'Meat Lovers': 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Hawaiian Paradise': 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'BBQ Chicken': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Garlic Bread': 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Caesar Salad': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Chicken Wings': 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Coca Cola': 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'Sprite': 'https://wearenotmartha.com/wp-content/uploads/tequila-and-sprite-lead.jpg',
+                'Orange Juice': 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+            };
+            
+            card.innerHTML = `
+                <div class="h-48 bg-cover bg-center" style="background-image: url('${images[item.name] || 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'}');"></div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2">${item.name}</h4>
+                    <p class="text-gray-600 mb-4">${item.description}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-orange-500">₹${item.price}</span>
+                        <button onclick="addToCart('${item.name}', ${item.price})" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function filterMenu(category) {
+    const items = document.querySelectorAll('.menu-item');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    buttons.forEach(btn => {
+        btn.className = 'filter-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg';
+    });
+    event.target.className = 'filter-btn bg-orange-500 text-white px-6 py-2 rounded-lg';
+
+    items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+
+        // Cart Functions
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            updateCartDisplay();
+            showNotification(`${name} added to cart!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function updateCartQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                updateCartDisplay();
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = totalPrice.toFixed(2);
+            
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex justify-between items-center bg-gray-50 p-3 rounded-lg';
+                cartItem.innerHTML = `
+                    <div>
+                        <h4 class="font-semibold">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.price} each</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateCartQuantity(${index}, -1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm">-</button>
+                        <span class="font-semibold">${item.quantity}</span>
+                        <button onclick="updateCartQuantity(${index}, 1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm">+</button>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 ml-2">🗑️</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+        }
+
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+        }
+
+     function checkout() {
+    if (cart.length === 0) {
+        showNotification('Your cart is empty!', 'error');
+        return;
+    }
+
+    if (!currentUser) {
+        showNotification('Please login to checkout', 'error');
+        showPage('login');
+        toggleCart();
+        return;
+    }
+
+    const items = cart.map(item => `${item.name} (${item.quantity})`).join(",");
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    fetch("placeOrder.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `customer_id=${currentUser.id}&items=${encodeURIComponent(items)}&total=${total}`
+    })
+    .then(res => res.text())
+    .then(msg => {
+        if (msg === "success") {
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+            showNotification("Order placed successfully!", "success");
+            if (currentUser.role === "customer") loadCustomerData();
+            if (currentUser.role === "admin") loadAdminOrders();
+        } else {
+            showNotification("Order failed. Try again.", "error");
+        }
+    });
+}
+
+        // Authentication Functions
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+			
+            fetch("login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+    })
+    .then(res => res.json())
+    .then(user => {
+        if (user.error) {
+            showNotification(user.error, "error");
+            return;
+        }
+
+        currentUser = user;
+        updateUserMenu();
+
+        if (user.role === "admin") {
+            showPage("admin");
+            loadAdminData();
+			loadAdminStats();
+            showNotification("Welcome Admin!", "success");
+        } else {
+            showPage("customer");
+            loadCustomerData();
+            showNotification("Welcome back " + user.name + "!", "success");
+        }
+    })
+    .catch(err => {
+        console.error("Login error:", err);
+        showNotification("Something went wrong!", "error");
+    });
+}
+
+        function logout() {
+            currentUser = null;
+            updateUserMenu();
+            showPage('home');
+            showNotification('Logged out successfully', 'success');
+        }
+
+        function updateUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            
+            if (currentUser) {
+                userMenu.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <span class="text-white">Welcome, ${currentUser.name}</span>
+                        <button onclick="showPage('${currentUser.role}')" class="bg-white text-orange-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                            ${currentUser.role === 'admin' ? 'Dashboard' : 'My Account'}
+                        </button>
+                    </div>
+                `;
+            } else {
+                userMenu.innerHTML = `
+                    <button onclick="showPage('login')" class="bg-white text-orange-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Login</button>
+                `;
+            }
+        }
+		
+		// Register
+function phpRegister(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("reg-name").value.trim();
+    const email = document.getElementById("reg-email").value.trim();
+    const phone = document.getElementById("reg-phone").value.trim();
+    const address = document.getElementById("reg-address").value.trim();
+    const password = document.getElementById("reg-password").value.trim();
+
+    fetch("register.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&address=${encodeURIComponent(address)}&password=${encodeURIComponent(password)}`
+    })
+    .then(res => res.text())
+    .then(msg => {
+        if (msg === "success") {
+            showNotification("Registration successful! Please login.", "success");
+            showPage("login");
+        } else {
+            showNotification(msg, "error");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        showNotification("Network error. Please try again.", "error");
+    });
+}
+
+        // Customer Page Functions
+function loadCustomerData() {
+    if (!currentUser || currentUser.role !== 'customer') return;
+
+    // Profile Info
+    document.getElementById('customer-name').textContent = currentUser.name;
+    document.getElementById('customer-email').textContent = currentUser.email;
+    document.getElementById('customer-phone').textContent = currentUser.phone || "Not provided";
+    document.getElementById('customer-address').textContent = currentUser.address || "Not provided";
+
+    // Quick Stats
+    fetch(`getCustomerStats.php?customer_id=${currentUser.id}`)
+        .then(res => res.json())
+        .then(stats => {
+            document.getElementById('customer-total-orders').textContent = stats.total_orders || 0;
+            document.getElementById('total-spent').textContent = `₹${parseFloat(stats.total_spent || 0).toFixed(2)}`;
+            document.getElementById('favorite-pizza').textContent = stats.favorite_pizza || "N/A";
+            document.getElementById('member-since').textContent = stats.member_since || "N/A";
+        });
+
+    // Order History
+    const customerOrders = document.getElementById('customer-orders');
+    fetch(`getOrders.php?customer_id=${currentUser.id}`)
+        .then(res => res.json())
+        .then(data => {
+            customerOrders.innerHTML = '';
+            data.forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'bg-gray-50 p-4 rounded-lg';
+                orderCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h4 class="font-semibold">Order #${order.id}</h4>
+                            <p class="text-sm text-gray-600">${order.order_date}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-sm ${getStatusColor(order.status)}">${order.status}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">${order.items}</p>
+                    <p class="font-bold text-orange-500">$${parseFloat(order.total).toFixed(2)}</p>
+                `;
+                customerOrders.appendChild(orderCard);
+            });
+        });
+}
+
+
+        // Admin Page Functions
+        function loadAdminOrders() {
+    fetch("getOrders.php")
+        .then(res => res.json())
+        .then(data => {
+            const adminOrders = document.getElementById('admin-orders');
+            adminOrders.innerHTML = '';
+
+            data.slice(0, 5).forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'bg-gray-50 p-4 rounded-lg';
+                orderCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h4 class="font-semibold">Order #${order.id}</h4>
+                            <p class="text-sm text-gray-600">${order.customer}</p>
+                        </div>
+                        <select onchange="updateOrderStatus(${order.id}, this.value)" 
+                                class="text-sm rounded px-2 py-1 ${getStatusColor(order.status)}">
+                            <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="In Progress" ${order.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                            <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">${order.items}</p>
+                    <p class="font-bold text-orange-500">$${parseFloat(order.total).toFixed(2)}</p>
+                `;
+                adminOrders.appendChild(orderCard);
+            });
+        });
+}
+
+function loadAdminCustomers() {
+    fetch("getCustomers.php")
+        .then(res => res.json())
+        .then(data => {
+            const adminCustomers = document.getElementById('admin-customers');
+            adminCustomers.innerHTML = '';
+
+            data.forEach(customer => {
+                const customerCard = document.createElement('div');
+                customerCard.className = 'bg-gray-50 p-4 rounded-lg';
+                customerCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-semibold">${customer.name}</h4>
+                            <p class="text-sm text-gray-600">${customer.email}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-semibold">${customer.orders} orders</p>
+                            <p class="text-sm text-orange-500">₹${parseFloat(customer.totalSpent).toFixed(2)}</p>
+                        </div>
+                    </div>
+                `;
+                adminCustomers.appendChild(customerCard);
+            });
+        });
+}
+
+        function updateOrderStatus(orderId, newStatus) {
+    fetch("updateOrder.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `id=${orderId}&status=${encodeURIComponent(newStatus)}`
+    })
+    .then(res => res.text())
+    .then(msg => {
+        if (msg === "success") {
+            showNotification(`Order #${orderId} status updated to ${newStatus}`, 'success');
+            loadAdminOrders(); // reload orders from DB
+        } else {
+            showNotification("Failed to update order!", 'error');
+        }
+    });
+}
+
+function loadAdminStats() {
+    fetch("getStats.php")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("admin-total-orders").textContent = data.totalOrders;
+            document.getElementById("total-revenue").textContent = "₹" + parseFloat(data.revenue).toFixed(2);
+            document.getElementById("total-customers").textContent = data.totalCustomers;
+        });
+}
+
+
+function loadAdminData() {
+    loadAdminOrders();
+    loadAdminCustomers();
+    loadAdminStats();
+    loadAdminContacts(); // NEW
+}
+
+
+        // Utility Functions
+        function getStatusColor(status) {
+            switch (status) {
+                case 'Pending': return 'bg-yellow-100 text-yellow-800';
+                case 'In Progress': return 'bg-blue-100 text-blue-800';
+                case 'Delivered': return 'bg-green-100 text-green-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white z-50 ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+function loadAdminContacts() {
+    fetch("getContacts.php")
+        .then(res => res.json())
+        .then(data => {
+            const adminContacts = document.getElementById('admin-contacts');
+            adminContacts.innerHTML = '';
+
+            if (!Array.isArray(data) || data.length === 0) {
+                adminContacts.innerHTML = `<p class="text-gray-500">No contact messages found.</p>`;
+                return;
+            }
+
+            data.forEach(contact => {
+                const contactCard = document.createElement('div');
+                contactCard.className = 'bg-gray-50 p-4 rounded-lg border border-gray-200';
+                contactCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-semibold">${contact.name}</h4>
+                            <p class="text-sm text-gray-600">${contact.email}</p>
+                        <div class="text-right">
+                            <p class="text-xs text-gray-400">📅 ${contact.date}</p>
+                        </div>
+                    </div>
+                    <p class="mt-2 text-sm">${contact.message}</p>
+                `;
+                adminContacts.appendChild(contactCard);
+            });
+        })
+        .catch(err => {
+            console.error("Error loading contacts:", err);
+            document.getElementById('admin-contacts').innerHTML =
+                `<p class="text-red-500">Failed to load contact messages.</p>`;
+        });
+}
+
+
+       function submitContactForm(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch("contact.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("✅ " + data.message);
+            form.reset();
+        } else {
+            alert("❌ " + data.message);
+        }
+    })
+    .catch(() => {
+        alert("⚠️ Something went wrong. Please try again.");
+    });
+}
+
+        function showRegister() {
+           showPage('register');
+		   }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html>
