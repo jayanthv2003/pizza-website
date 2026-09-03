@@ -1,4 +1,4 @@
-# ?? Pizza Palace — Full-Stack Ordering & Restaurant Management System
+# ?? Pizza Palace â€” Full-Stack Ordering & Restaurant Management System
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
@@ -125,11 +125,11 @@ flowchart TD
 ```text
 pizza-website/
 +-- database/
-¦   +-- schema.sql             # Idempotent DB schema, indexes, constraints, and seed data
+Â¦   +-- schema.sql             # Idempotent DB schema, indexes, constraints, and seed data
 +-- assets/                    # Static UI resources (optional modular extraction)
-¦   +-- css/
-¦   +-- js/
-¦   +-- images/
+Â¦   +-- css/
+Â¦   +-- js/
+Â¦   +-- images/
 +-- .env.example               # Template for environment configuration
 +-- .gitignore                 # Exclusion rules for secrets, OS files, and dependencies
 +-- contact.php                # Endpoint: Handles contact form submissions
@@ -266,11 +266,11 @@ The database migration seeds an administrative user account by default:
 
 | Desktop Landing & Menu | Real-Time Cart & Checkout |
 | :---: | :---: |
-| ![Home & Menu](https://via.placeholder.com/600x350/ff6b35/ffffff?text=Landing+Page+%26+Menu) | ![Cart View](https://via.placeholder.com/600x350/2d3748/ffffff?text=Interactive+Cart+Sidebar) |
+| ![Home & Menu](<img width="1897" height="907" alt="home" src="https://github.com/user-attachments/assets/8208e861-582c-4914-b1d2-00cccffa6179" />) | ![Cart View](<img width="1366" height="800" alt="cart-sidebar" src="https://github.com/user-attachments/assets/56132b42-3969-4567-b305-ebcd922a547b" />) |
 
 | Customer Dashboard & Tracking | Admin Analytics & Order Control |
 | :---: | :---: |
-| ![Customer Portal](https://via.placeholder.com/600x350/48bb78/ffffff?text=Customer+Account+%26+Order+History) | ![Admin Panel](https://via.placeholder.com/600x350/e53e3e/ffffff?text=Admin+KPIs+%26+Order+Fulfillment) |
+| ![Customer Portal]<img width="1366" height="800" alt="customer-dashboard" src="https://github.com/user-attachments/assets/f7480c96-a4df-46ea-bd81-c3c624a0f856" />) | ![Admin Panel](<img width="1366" height="800" alt="admin-dashboard" src="https://github.com/user-attachments/assets/14a5de97-d8ad-49a9-9679-22804fe7341f" />) |
 
 *(Replace placeholder URLs with actual screenshots of your running instance before sharing.)*
 
