@@ -266,11 +266,11 @@ The database migration seeds an administrative user account by default:
 
 | Desktop Landing & Menu | Real-Time Cart & Checkout |
 | :---: | :---: |
-| ![Home & Menu](<img width="1897" height="907" alt="home" src="https://github.com/user-attachments/assets/8208e861-582c-4914-b1d2-00cccffa6179" />) | ![Cart View](<img width="1366" height="800" alt="cart-sidebar" src="https://github.com/user-attachments/assets/56132b42-3969-4567-b305-ebcd922a547b" />) |
+| ![Home & Menu]<img width="1897" height="907" alt="home" src="https://github.com/user-attachments/assets/8208e861-582c-4914-b1d2-00cccffa6179" /> | ![Cart View]<img width="1366" height="800" alt="cart-sidebar" src="https://github.com/user-attachments/assets/56132b42-3969-4567-b305-ebcd922a547b" /> |
 
 | Customer Dashboard & Tracking | Admin Analytics & Order Control |
 | :---: | :---: |
-| ![Customer Portal]<img width="1366" height="800" alt="customer-dashboard" src="https://github.com/user-attachments/assets/f7480c96-a4df-46ea-bd81-c3c624a0f856" />) | ![Admin Panel](<img width="1366" height="800" alt="admin-dashboard" src="https://github.com/user-attachments/assets/14a5de97-d8ad-49a9-9679-22804fe7341f" />) |
+| ![Customer Portal]<img width="1366" height="800" alt="customer-dashboard" src="https://github.com/user-attachments/assets/f7480c96-a4df-46ea-bd81-c3c624a0f856" /> | ![Admin Panel]<img width="1366" height="800" alt="admin-dashboard" src="https://github.com/user-attachments/assets/14a5de97-d8ad-49a9-9679-22804fe7341f" /> |
 
 *(Replace placeholder URLs with actual screenshots of your running instance before sharing.)*
 
